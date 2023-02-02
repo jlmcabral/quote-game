@@ -1,1 +1,19 @@
-<h1>Hi!</h1>
+<main class="w-full h-screen bg-blue-900 p-5 text-blue-200 text-center">
+  <div class="bg-blue-800 rounded-xl p-8">
+    <p
+      class="text-green-400 text-sm uppercase tracking-[4px] font-extrabold py-5"
+    >
+      Quote
+    </p>
+    <h1
+      class="font-extrabold text-2xl leading-16 tracking-wide before:content-['“'] after:content-['”'] before:text-3xl after:text-3xl"
+    >
+      {{ teste.quote }}
+    </h1>
+  </div>
+  <div class="flex flex-col gap-4 mt-6">
+    <button class="btn-choice" *ngFor="let option of teste.options">
+      {{ option.name }}
+    </button>
+  </div>
+</main>
