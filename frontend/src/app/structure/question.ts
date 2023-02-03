@@ -1,7 +1,7 @@
-export interface Question  {
-    quote: string;
-    options: {
-        name: string,
-        state: boolean,
-    }[]
+export interface Question {
+  quote: string;
+  options: {
+    name: string;
+    state: boolean;
+  }[];
 }
