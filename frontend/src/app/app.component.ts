@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { QuoteService } from './quote.service';
+import { DataReceived } from './structure/datareceive';
 import { Question } from './structure/question';
 
 @Component({
@@ -7,29 +8,27 @@ import { Question } from './structure/question';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Quote Game';
-  teste: Question = {
-    quote: 'Estar vivo é o contrário de estar morto',
-    options: [
-      {
-        name: 'Lili Caneças',
-        state: true,
-      },
-      {
-        name: 'Ze camarinha',
-        state: false,
-      },
-      {
-        name: 'Tino de Rans',
-        state: false,
-      },
-    ],
-  };
+  teste!: Question; 
+ 
 
   constructor(private quoteService: QuoteService) {
-    this.quoteService.getQuotes(2).subscribe((data) => {
-      console.log(data);
+    this.teste = {
+      quote: "",
+      options: [] = []
+    };
+  }
+
+  ngOnInit(): void {
+    this.quoteService.getQuotes(3).subscribe((data: DataReceived[]) => {
+      data.forEach((el, index) => {
+        this.teste.quote = el.quote;
+        this.teste.options.push({
+            name: el.author,
+            state: index == 0 ? true : false
+        });
+      });
     });
   }
 }

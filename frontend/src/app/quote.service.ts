@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DataReceived } from './structure/datareceive';
 
 @Injectable({
   providedIn: 'root',
@@ -8,11 +9,11 @@ import { Observable } from 'rxjs';
 export class QuoteService {
   constructor(private http: HttpClient) {}
 
-  getQuote(): Observable<unknown> {
+  getQuote(): Observable<any> {
     return this.getQuotes();
   }
 
-  getQuotes(numberOfQuotes = 1): Observable<unknown> {
+  getQuotes(numberOfQuotes = 1): Observable<any> {
     return this.http.get(
       `https://api.api-ninjas.com/v1/quotes?limit=${numberOfQuotes}`,
       {
