@@ -1,5 +1,10 @@
 {
-    "recommendations": [
-        "bradlc.vscode-tailwindcss"
-    ]
+  "recommendations": [
+    "bradlc.vscode-tailwindcss",
+    "naumovs.color-highlight",
+    "formulahendry.auto-rename-tag",
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode"
+  ]
 }
