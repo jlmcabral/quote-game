@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QuoteService } from './quote.service';
-import { DataReceived } from './structure/datareceive';
-import { Question } from './structure/question';
+import { DataReceived } from './models/dataReceived.model';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -10,30 +10,42 @@ import { Question } from './structure/question';
 })
 export class AppComponent implements OnInit {
   title = 'Quote Game';
-  teste!: Question; 
- 
 
-  constructor(private quoteService: QuoteService) {
-    this.teste = {
-      quote: "",
-      options: [] = []
-    };
-  }
+  quotes: DataReceived[] = [];
+  quoteIndex: number = 0;
+  error: boolean = false;
+  buttonClicked: number = -1;
+
+  constructor(private quoteService: QuoteService) {}
 
   ngOnInit(): void {
-    const randNumber = Math.floor(Math.random() * 2);
-    console.log(randNumber);
+    this.generateQuotes();
+  }
 
-    this.quoteService.getQuotes(3).subscribe((data: DataReceived[]) => {
-      data.forEach((el, index) => {
-        if (index === randNumber) {
-          this.teste.quote = el.quote
-        }
-        this.teste.options.push({
-            name: el.author,
-            state: index === randNumber ? true : false,
-        });
+  checkAnswer(answerIndex: number): void {
+    this.buttonClicked = answerIndex;
+    this.error = answerIndex === this.quoteIndex ? false : true;
+
+    setTimeout(() => {
+      this.buttonClicked = -1;
+      this.error = false;
+      this.generateQuotes();
+    }, 1 * 1000);
+  }
+
+  private generateIndex(): number {
+    this.error = false;
+    return Math.floor(Math.random() * 3);
+  }
+
+  private generateQuotes() {
+    this.quoteService
+      .getQuotes(3)
+      .pipe(take(1))
+      .subscribe((data: DataReceived[]) => {
+        this.quotes = data;
+        this.quoteIndex = this.generateIndex();
+        console.log('Correct Result: ' + this.quoteIndex);
       });
-    });
   }
 }

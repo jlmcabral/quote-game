@@ -13,6 +13,9 @@ module.exports = {
       green: {
         400: "#52ffa8",
       },
+      red :{
+        400: '#fe6262'
+      }
     },
   },
   plugins: [],
