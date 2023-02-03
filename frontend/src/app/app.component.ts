@@ -21,12 +21,17 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const randNumber = Math.floor(Math.random() * 2);
+    console.log(randNumber);
+
     this.quoteService.getQuotes(3).subscribe((data: DataReceived[]) => {
       data.forEach((el, index) => {
-        this.teste.quote = el.quote;
+        if (index === randNumber) {
+          this.teste.quote = el.quote
+        }
         this.teste.options.push({
             name: el.author,
-            state: index == 0 ? true : false
+            state: index === randNumber ? true : false,
         });
       });
     });
